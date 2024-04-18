@@ -42,17 +42,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (ControlFlowSingleton.isPasswordLocked){
             Intent intent = new Intent(MainActivity.this, LockScreenActivity.class);
             startActivityForResult(intent, PASSWORD_REQUEST);
+            finish();
         }
-
-        setContentView(R.layout.activity_main);
-        initViews();
-        onClickListeners(savedInstanceState);
-        loadNoteFromDB();
-        ControlFlowSingleton.isAppInstanceRunning = true;
+        else {
+            setContentView(R.layout.activity_main);
+            initViews();
+            onClickListeners(savedInstanceState);
+            loadNoteFromDB();
+            ControlFlowSingleton.isAppInstanceRunning = true;
+        }
     }
     private void onClickListeners(Bundle savedInstanceState){
         buttonAddNote.setOnClickListener(v -> {
