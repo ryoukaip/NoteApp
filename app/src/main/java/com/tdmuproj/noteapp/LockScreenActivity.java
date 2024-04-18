@@ -23,8 +23,6 @@ public class LockScreenActivity extends AppCompatActivity {
     private void initViews(){
         buttonExit = findViewById(R.id.buttonExit);
         editTextNumberPassword = findViewById(R.id.editTextNumberPassword);
-        editTextNumberPassword.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-        editTextNumberPassword.setFilters(new InputFilter[]{new DotPasswordInputFilter()});
     }
     private void onClickListeners(){
         buttonExit.setOnClickListener(v -> {
