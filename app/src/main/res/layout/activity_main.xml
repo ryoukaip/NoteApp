@@ -65,7 +65,7 @@
     <Button
         android:id="@+id/buttonAddNote"
         android:layout_width="86dp"
-        android:layout_height="88dp"
+        android:layout_height="86dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/rounded_square_button"
