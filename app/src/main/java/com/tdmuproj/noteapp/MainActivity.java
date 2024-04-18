@@ -42,17 +42,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initViews();
+        onClickListeners(savedInstanceState);
+        loadNoteFromDB();
         if (ControlFlowSingleton.isPasswordLocked){
             Intent intent = new Intent(MainActivity.this, LockScreenActivity.class);
             startActivityForResult(intent, PASSWORD_REQUEST);
-            finish();
-        }
-        else {
-            setContentView(R.layout.activity_main);
-            initViews();
-            onClickListeners(savedInstanceState);
-            loadNoteFromDB();
-            ControlFlowSingleton.isAppInstanceRunning = true;
         }
     }
     private void onClickListeners(Bundle savedInstanceState){
@@ -80,12 +76,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
+        if ((requestCode == ADD_NOTE_REQUEST || requestCode == PASSWORD_REQUEST) && resultCode == RESULT_OK) {
             if (noteSingleton.isAddNoteOrNot()){
                 createNoteView(noteSingleton.getNote());
             }
-        } else if (requestCode == PASSWORD_REQUEST && resultCode == RESULT_OK){
-
         }
     }
     private void createNoteView(Note note){

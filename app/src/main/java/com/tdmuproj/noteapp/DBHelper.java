@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
-    /* database schema
+    /* database schema of notes table
     DATABASE_NAME = "notedb'
     DATABASE_VERSION = 1
     TABLE_NAME = "notes"
@@ -27,6 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATE_TIME_COLUMN = "date_time";
     public long newRowId;
     public static List<Note> noteList = new ArrayList<>();
+
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
