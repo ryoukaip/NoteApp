@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    item update note and delete note-->
+    <item
+        android:id="@+id/menu_update_note"
+        android:title="Update"/>
+    <item
+        android:id="@+id/menu_delete_note"
+        android:title="Delete"/>
+
+</menu>
