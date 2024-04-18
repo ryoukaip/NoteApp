@@ -5,10 +5,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LockScreenActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
     /// <global-variable>
     Button buttonExit;
     Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
@@ -19,19 +18,12 @@ public class LockScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lock_screen);
+        setContentView(R.layout.activity_change_password);
         initViews();
         onClickListeners();
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                // toast please enter the password
-                Toast.makeText(LockScreenActivity.this, "Please enter the password", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
     private void initViews(){
+        /// <init-views>
         buttonExit = findViewById(R.id.buttonExit);
         editTextNumberPassword = findViewById(R.id.editTextUsername);
         button0 = findViewById(R.id.button0);
@@ -46,8 +38,10 @@ public class LockScreenActivity extends AppCompatActivity {
         button9 = findViewById(R.id.button9);
         buttonDel = findViewById(R.id.buttonDel);
         buttonOK = findViewById(R.id.buttonOK);
+        /// </init-views>
     }
     private void onClickListeners(){
+        /// <on-click-listeners>
         buttonExit.setOnClickListener(v -> {
             this.finish();
         });
@@ -137,22 +131,16 @@ public class LockScreenActivity extends AppCompatActivity {
         });
         buttonOK.setOnClickListener(v -> {
             String password = editTextNumberPassword.getText().toString();
-            dbHelperPassword = new DBHelperPassword(this);
-            String passwordFromDB = dbHelperPassword.getPasswordFromDB();
-            if (password.equals(passwordFromDB)){
-                Toast.makeText(this, "Correct password", Toast.LENGTH_SHORT).show();
-                ControlFlowSingleton.isPasswordVerified = true;
-                finishActivityWithResult();
+            if (password.length() == 0){
+                Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
+                dbHelperPassword = new DBHelperPassword(this);
+                dbHelperPassword.updatePasswordToDB(password);
+                Toast.makeText(this, "Password changed successfully", Toast.LENGTH_SHORT).show();
+                this.finish();
             }
         });
+        /// </on-click-listeners>
     }
 
-
-
-    private void finishActivityWithResult(){
-        setResult(RESULT_OK);
-        finish();
-    }
 }

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewInstruction, textViewAppTitle;
     Button buttonAddNote;
     DBHelper dbHelper;
+    DBHelperPassword dbHelperPassword;
     NoteSingleton noteSingleton = NoteSingleton.getInstance();
     List<Note> noteList = new ArrayList<>();
     private static final int ADD_NOTE_REQUEST = 1;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         onClickListeners(savedInstanceState);
         loadNoteFromDB();
+        checkPasswordState();
         if (ControlFlowSingleton.isPasswordLocked){
             Intent intent = new Intent(MainActivity.this, LockScreenActivity.class);
             startActivityForResult(intent, PASSWORD_REQUEST);
@@ -156,5 +158,9 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.deleteNoteFromDB(dateTime);
         // delete note from noteList
         noteList.removeIf(note -> note.getDate().equals(dateTime));
+    }
+    private void checkPasswordState(){
+        dbHelperPassword = new DBHelperPassword(this);
+        dbHelperPassword.getBooleanFromDB();
     }
 }
