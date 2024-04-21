@@ -65,15 +65,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /// <testing>
-        textViewAppTitle.setOnClickListener(v -> {
-            createNoteView(new Note("testing", "testingContent", "testDate"));
-        });
-        // on Long Click
-        textViewAppTitle.setOnLongClickListener(v -> {
-            notesContainer.removeAllViews();
-            setTextViewInstructionState();
-            return true;
-        });
+//        textViewAppTitle.setOnClickListener(v -> {
+//            createNoteView(new Note("testing", "testingContent", "testDate"));
+//        });
+//        // on Long Click
+//        textViewAppTitle.setOnLongClickListener(v -> {
+//            notesContainer.removeAllViews();
+//            setTextViewInstructionState();
+//            return true;
+//        });
         /// </testing>
     }
     @Override
