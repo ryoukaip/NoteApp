@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, LockScreenActivity.class);
             startActivityForResult(intent, PASSWORD_REQUEST);
         }
+
     }
     private void onClickListeners(Bundle savedInstanceState){
         buttonAddNote.setOnClickListener(v -> {
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadNoteFromDB(){
         dbHelper = new DBHelper(this);
         dbHelper.createNoteListFromDB();
+        notesContainer.removeAllViews();
         noteList = noteSingleton.getNoteList();
         for (Note note : noteList){
             createNoteView(note);
