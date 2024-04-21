@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,10 +50,17 @@ public class UpdateNoteActivity extends AppCompatActivity {
             note.setTitle(editTextTextNoteTitle.getText().toString());
             note.setContent(editTextTextNoteContent.getText().toString());
             note.setDate(formatter.format(date));
+            Intent intent = getIntent();
+            if (intent != null)
+            {
+                String dateOld = intent.getStringExtra("date");
+                //Toast.makeText(this, dateOld, Toast.LENGTH_SHORT).show();
+                dbHelper = new DBHelper(this);
+                dbHelper.deleteNoteFromDB(dateOld);
+            }
             noteSingleton = NoteSingleton.getInstance();
             noteSingleton.setAddNoteOrNot(true);
             noteSingleton.setNote(note);
-            deleteOldNote();
             dbHelper = new DBHelper(this);
             dbHelper.addNoteToDB(note.getTitle(), note.getContent(), note.getDate());
             finishActivityWithResult(note);
@@ -68,7 +76,8 @@ public class UpdateNoteActivity extends AppCompatActivity {
     }
     private void deleteOldNote(){
         Intent intent = getIntent();
-        if (intent != null){
+        if (intent != null)
+        {
             String date = intent.getStringExtra("date");
             dbHelper = new DBHelper(this);
             dbHelper.deleteNoteFromDB(date);

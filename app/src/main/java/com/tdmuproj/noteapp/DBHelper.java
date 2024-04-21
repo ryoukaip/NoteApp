@@ -71,7 +71,8 @@ public class DBHelper extends SQLiteOpenHelper {
 //        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
         cursor.moveToFirst();
-
+        // remove all in noteList
+        noteList.clear();
         while (!cursor.isAfterLast()){
             noteList.add(new Note(
                     cursor.getInt(0),
@@ -93,4 +94,5 @@ public class DBHelper extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, DATE_TIME_COLUMN + " = ?", new String[]{dateTime});
         db.close();
     }
+
 }

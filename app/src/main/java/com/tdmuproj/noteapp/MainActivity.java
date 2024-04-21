@@ -79,11 +79,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == ADD_NOTE_REQUEST || requestCode == PASSWORD_REQUEST) && resultCode == RESULT_OK) {
-            if (noteSingleton.isAddNoteOrNot()){
-                createNoteView(noteSingleton.getNote());
-            }
-        }
+        loadNoteFromDB();
+//        if ((requestCode == ADD_NOTE_REQUEST || requestCode == PASSWORD_REQUEST) && resultCode == RESULT_OK) {
+//            if (noteSingleton.isAddNoteOrNot()){
+//                createNoteView(noteSingleton.getNote());
+//            }
+//        }
     }
     private void createNoteView(Note note){
             View noteView = getLayoutInflater().inflate(R.layout.note_item, null, false);
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             dateTextView.setText(note.getDate());
 
             noteView.setOnLongClickListener(v -> {
+                noteSingleton.setNote(note);
                 // show toast of the dateTime of the note
                 // Toast.makeText(this, note.getDate(), Toast.LENGTH_SHORT).show();
                 PopupMenu popupMenu = new PopupMenu(this, noteView);
